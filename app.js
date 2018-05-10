@@ -14,18 +14,13 @@ new Vue({
     attack() {
       this.monsterHealth -= this.calculateDamage(3, 10);;
 
-      if (this.monsterHealth <= 0) {
-        alert('Вы победили!');
-        this.gameIsRunning = false;
+      if (this.checkWin()) {
         return; // Сразу же выходим из функции чтобы монстр нас не бил когда мы уже победили
       }
 
       this.playerHealth -= this.calculateDamage(5, 12);
 
-      if (this.playerHealth <= 0) {
-        alert('Вы проиграли!');
-        this.gameIsRunning = false;
-      }
+      this.checkWin();
     },
     specialAttack() {
 
@@ -38,6 +33,24 @@ new Vue({
     },
     calculateDamage(min, max) {
       return Math.max(Math.floor(Math.random() * max) + 1, min);
+    },
+    checkWin() {
+      if (this.monsterHealth <= 0) {
+        if (confirm('Вы победили! Сыграем еще?')) {
+          this.startGame();
+        } else {
+          this.gameIsRunning = false;
+        }
+        return true;
+      } else if (this.playerHealth <= 0) {
+        if (confirm('Вы победили! Сыграем еще?')) {
+          this.startGame();
+        } else {
+          this.gameIsRunning = false;
+        }
+        return true
+      }
+      return false;
     }
   }
 });
