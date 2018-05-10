@@ -18,8 +18,7 @@ new Vue({
         return; // Сразу же выходим из функции чтобы монстр нас не бил когда мы уже победили
       }
 
-      this.playerHealth -= this.calculateDamage(5, 12);
-      this.checkWin();
+      this.monsterAttacks();
     },
     specialAttack() {
       this.monsterHealth -= this.calculateDamage(10, 20);
@@ -27,14 +26,17 @@ new Vue({
       if (this.checkWin()) {
         return; // Сразу же выходим из функции чтобы монстр нас не бил когда мы уже победили
       }
-      this.playerHealth -= this.calculateDamage(5, 12);
-      this.checkWin();
+      this.monsterAttacks();
     },
     heal() {
 
     },
     giveUp() {
 
+    },
+    monsterAttacks() {
+      this.playerHealth -= this.calculateDamage(5, 12);
+      this.checkWin();
     },
     calculateDamage(min, max) {
       return Math.max(Math.floor(Math.random() * max) + 1, min);
@@ -48,7 +50,7 @@ new Vue({
         }
         return true;
       } else if (this.playerHealth <= 0) {
-        if (confirm('Вы победили! Сыграем еще?')) {
+        if (confirm('Вы проиграли! Сыграем еще?')) {
           this.startGame();
         } else {
           this.gameIsRunning = false;
