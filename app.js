@@ -29,7 +29,8 @@ new Vue({
       this.monsterAttacks();
     },
     heal() {
-
+      this.playerHealth += 10;
+      this.monsterAttacks();
     },
     giveUp() {
 
