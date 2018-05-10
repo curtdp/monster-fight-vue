@@ -12,10 +12,7 @@ new Vue({
       this.monsterHealth = 100;
     },
     attack() {
-      let max = 10;
-      let min = 3;
-      let damage = Math.max(Math.floor(Math.random() * max) + 1, min);
-      this.monsterHealth -= damage;
+      this.monsterHealth -= this.calculateDamage(3, 10);;
 
       if (this.monsterHealth <= 0) {
         alert('Вы победили!');
@@ -23,10 +20,7 @@ new Vue({
         return; // Сразу же выходим из функции чтобы монстр нас не бил когда мы уже победили
       }
 
-      max = 12;
-      min = 5;
-      damage = Math.max(Math.floor(Math.random() * max) + 1, min);
-      this.playerHealth -= damage;
+      this.playerHealth -= this.calculateDamage(5, 12);
 
       if (this.playerHealth <= 0) {
         alert('Вы проиграли!');
@@ -41,6 +35,9 @@ new Vue({
     },
     giveUp() {
 
+    },
+    calculateDamage(min, max) {
+      return Math.max(Math.floor(Math.random() * max) + 1, min);
     }
   }
 });
