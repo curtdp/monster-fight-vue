@@ -34,7 +34,7 @@
     </section>
     <section class="row controls" v-if="!gameIsRunning">
         <div class="small-12 columns">
-            <button id="start-game">НАЧАТЬ НОВУЮ ИГРУ</button>
+            <button id="start-game" @click="startGame">НАЧАТЬ НОВУЮ ИГРУ</button>
         </div>
     </section>
     <section class="row controls" v-else>
