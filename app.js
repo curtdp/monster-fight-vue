@@ -3,7 +3,8 @@ new Vue({
   data: {
     playerHealth: 100,
     monsterHealth: 100,
-    gameIsRunning: false
+    gameIsRunning: false,
+    turns: []
   },
   methods: {
     startGame() {
@@ -12,7 +13,13 @@ new Vue({
       this.monsterHealth = 100;
     },
     attack() {
-      this.monsterHealth -= this.calculateDamage(3, 10);
+      const damage = this.calculateDamage(3, 10);
+      this.monsterHealth -= damage;
+
+      this.turns.unshift({
+        isPlayer: true,
+        text: `Игрок ударил монстра на ${damage} урона`
+      })
 
       if (this.checkWin()) {
         return; // Сразу же выходим из функции чтобы монстр нас не бил когда мы уже победили
@@ -40,7 +47,14 @@ new Vue({
       this.gameIsRunning = false;
     },
     monsterAttacks() {
-      this.playerHealth -= this.calculateDamage(5, 12);
+      const damage = this.calculateDamage(5, 12)
+      this.playerHealth -= damage;
+
+      this.turns.unshift({
+        isPlayer: false,
+        text: `Монстр ударил игрока на ${damage} урона`
+      });
+
       this.checkWin();
     },
     calculateDamage(min, max) {
