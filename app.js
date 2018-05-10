@@ -11,6 +11,7 @@ new Vue({
       this.gameIsRunning = true;
       this.playerHealth = 100;
       this.monsterHealth = 100;
+      this.turns = [];
     },
     attack() {
       const damage = this.calculateDamage(3, 10);
@@ -19,7 +20,7 @@ new Vue({
       this.turns.unshift({
         isPlayer: true,
         text: `Игрок ударил монстра на ${damage} урона`
-      })
+      });
 
       if (this.checkWin()) {
         return; // Сразу же выходим из функции чтобы монстр нас не бил когда мы уже победили
@@ -28,7 +29,13 @@ new Vue({
       this.monsterAttacks();
     },
     specialAttack() {
-      this.monsterHealth -= this.calculateDamage(10, 20);
+      const damage = this.calculateDamage(10, 20)
+      this.monsterHealth -= damage;
+
+      this.turns.unshift({
+        isPlayer: true,
+        text: `Игрок сильно ударил монстра на ${damage} урона`
+      })
 
       if (this.checkWin()) {
         return; // Сразу же выходим из функции чтобы монстр нас не бил когда мы уже победили
@@ -41,6 +48,12 @@ new Vue({
       } else {
         this.playerHealth = 100;
       }
+
+      this.turns.unshift({
+        isPlayer: true,
+        text: `Игрок полечился на 10 здоровья`
+      })
+
       this.monsterAttacks();
     },
     giveUp() {
