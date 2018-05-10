@@ -12,18 +12,23 @@ new Vue({
       this.monsterHealth = 100;
     },
     attack() {
-      this.monsterHealth -= this.calculateDamage(3, 10);;
+      this.monsterHealth -= this.calculateDamage(3, 10);
 
       if (this.checkWin()) {
         return; // Сразу же выходим из функции чтобы монстр нас не бил когда мы уже победили
       }
 
       this.playerHealth -= this.calculateDamage(5, 12);
-
       this.checkWin();
     },
     specialAttack() {
+      this.monsterHealth -= this.calculateDamage(10, 20);
 
+      if (this.checkWin()) {
+        return; // Сразу же выходим из функции чтобы монстр нас не бил когда мы уже победили
+      }
+      this.playerHealth -= this.calculateDamage(5, 12);
+      this.checkWin();
     },
     heal() {
 
